@@ -1,1 +1,138 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hlokomehla Health | Clinic Management System</title>
+<style>
+:root{--navy:#123047;--teal:#0e8f88;--mint:#e8f6f4;--bg:#f4f7fa;--ink:#203342;--muted:#6b7c89;--line:#e2e9ee;--red:#c74646;--gold:#b7791f}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font:15px/1.5 Arial,sans-serif;color:var(--ink)}
+header{background:var(--navy);color:white;padding:18px 26px;display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:42px;height:42px;border-radius:12px;background:var(--teal);display:grid;place-items:center;font-size:23px;font-weight:bold}.brand h1{font-size:20px;margin:0}.brand small{color:#c7d9e2}
+.header-right{font-size:13px;color:#d6e5eb}
+.layout{display:flex;min-height:calc(100vh - 78px)}nav{width:225px;background:white;border-right:1px solid var(--line);padding:20px 12px;flex-shrink:0}
+nav button{display:block;width:100%;border:0;background:transparent;text-align:left;padding:12px 14px;margin:3px 0;border-radius:9px;color:#425665;font-weight:600;cursor:pointer}nav button.active,nav button:hover{background:var(--mint);color:#08766f}
+main{padding:26px;width:100%;max-width:1400px;margin:auto}.page{display:none}.page.active{display:block}.eyebrow{color:var(--teal);font-weight:bold;text-transform:uppercase;letter-spacing:1px;font-size:11px}h2{margin:4px 0 5px;color:var(--navy);font-size:25px}.sub{color:var(--muted);margin:0 0 22px}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:18px 0}.card,.panel{background:white;border:1px solid var(--line);border-radius:13px;padding:18px;box-shadow:0 2px 8px #17364a08}.metric{font-size:27px;font-weight:700;color:var(--navy);margin-top:7px}.metric-label{color:var(--muted);font-size:13px}.panel{margin:16px 0}.panel h3{margin:0 0 14px;color:var(--navy);font-size:17px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+label{display:block;font-size:13px;font-weight:600;color:#435765;margin-bottom:5px}input,select,textarea{width:100%;padding:10px 11px;border:1px solid #d4dfe6;border-radius:8px;background:white;font:inherit;color:var(--ink)}textarea{min-height:76px;resize:vertical}
+.field{margin-bottom:10px}.btn{border:0;border-radius:8px;padding:10px 15px;background:var(--teal);color:white;font-weight:700;cursor:pointer}.btn:hover{filter:brightness(.94)}.btn.secondary{background:#e9f0f4;color:var(--navy)}.btn.danger{background:#fff0f0;color:var(--red)}.btn.small{padding:6px 9px;font-size:12px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:11px 9px;border-bottom:1px solid var(--line);vertical-align:top}th{color:#637684;background:#f8fafb;font-size:12px}tr:last-child td{border-bottom:0}.tag{display:inline-block;padding:3px 8px;border-radius:20px;background:#e8f6f4;color:#08766f;font-size:11px;font-weight:bold}.tag.red{background:#fff0f0;color:var(--red)}.tag.gold{background:#fff5df;color:var(--gold)}
+.notice{padding:12px 14px;border-radius:9px;background:#edf7fb;color:#315a70;font-size:13px;margin:12px 0}.empty{color:#80909b;padding:18px;text-align:center}
+footer{text-align:center;color:#81909a;font-size:12px;padding:22px}
+@media(max-width:850px){.layout{display:block}nav{width:100%;display:flex;overflow:auto;padding:8px}nav button{white-space:nowrap;width:auto}.cards{grid-template-columns:repeat(2,1fr)}main{padding:16px}.grid2{grid-template-columns:1fr}}
+@media(max-width:520px){.cards{grid-template-columns:1fr 1fr}.formgrid{grid-template-columns:1fr}.brand h1{font-size:17px}}
+</style>
+</head>
+<body>
+<header><div class="brand"><div class="logo">+</div><div><h1>Hlokomehla Health</h1><small>Clinic Management System · Demonstration</small></div></div><div class="header-right">● Demo environment &nbsp; | &nbsp; South Africa (ZAR)</div></header>
+<div class="layout">
+<nav>
+<button class="active" data-page="dashboard">▦ &nbsp; Dashboard</button>
+<button data-page="patients">♙ &nbsp; Patient Registration</button>
+<button data-page="queue">☷ &nbsp; Patient Queue</button>
+<button data-page="consult">✚ &nbsp; Consultation</button>
+<button data-page="billing">R &nbsp; Billing & Payments</button>
+<button data-page="reports">▤ &nbsp; Manager Reports</button>
+</nav>
+<main>
+<section id="dashboard" class="page active">
+<div class="eyebrow">Clinic overview</div><h2>Good day, Clinic Team</h2><p class="sub">Welcome to your daily clinic operations dashboard.</p>
+<div class="cards">
+<div class="card"><div class="metric-label">Patient visits</div><div class="metric" id="visitMetric">24</div><div class="metric-label">Today's demonstration total</div></div>
+<div class="card"><div class="metric-label">Active queue</div><div class="metric" id="queueMetric">6 / 7</div><div class="metric-label">Maximum active capacity: 7</div></div>
+<div class="card"><div class="metric-label">Invoices issued</div><div class="metric" id="invoiceMetric">18</div><div class="metric-label">Demo records + new invoices</div></div>
+<div class="card"><div class="metric-label">Outstanding balance</div><div class="metric" id="outstandingMetric">R1,580</div><div class="metric-label">Unpaid demonstration invoices</div></div>
+</div>
+<div class="grid2"><div class="panel"><h3>Today's clinic activity</h3><p>Patients registered, prioritised and assisted through one connected workflow.</p><div class="notice">Urgent patients should be prioritised by clinical staff. The queue is limited to 7 active patients in this demonstration.</div></div><div class="panel"><h3>Quick actions</h3><p>Use these shortcuts to demonstrate the main clinic processes.</p><div class="actions"><button class="btn" onclick="showPage('patients')">Register patient</button><button class="btn secondary" onclick="showPage('queue')">View queue</button><button class="btn secondary" onclick="showPage('billing')">Open billing</button></div></div></div>
+<div class="panel"><h3>System modules</h3><div class="grid2"><div>✓ Staff access demonstration<br>✓ Patient registration and search<br>✓ Queue management and urgency</div><div>✓ Consultation record<br>✓ Invoice and simulated payment<br>✓ Management reporting</div></div></div>
+</section>
+<section id="patients" class="page">
+<div class="eyebrow">Front desk</div><h2>Patient Registration</h2><p class="sub">Capture fictional patient details and find an existing demonstration record.</p>
+<div class="grid2"><div class="panel"><h3>Register a new patient</h3><form id="patientForm"><div class="formgrid">
+<div class="field"><label>Full name</label><input id="pname" required placeholder="e.g. Thandi Mokoena"></div>
+<div class="field"><label>Date of birth</label><input id="pdob" type="date" required></div>
+<div class="field"><label>Contact number</label><input id="phone" placeholder="e.g. 071 000 0000"></div>
+<div class="field"><label>Gender</label><select id="gender"><option>Prefer not to say</option><option>Female</option><option>Male</option><option>Other</option></select></div>
+<div class="field"><label>Patient number</label><input id="pnumber" placeholder="Auto-generated if blank"></div>
+<div class="field"><label>Allergies (if any)</label><input id="allergy" placeholder="e.g. Penicillin / None known"></div>
+</div><button class="btn" type="submit">Save patient</button></form><div id="patientMsg"></div></div>
+<div class="panel"><h3>Patient search</h3><div class="field"><label>Search by name or patient number</label><input id="patientSearch" placeholder="Start typing..." oninput="renderPatients()"></div><div id="patientResults"></div></div></div>
+<div class="panel"><h3>Registered patients</h3><div id="patientTable"></div></div>
+</section>
+<section id="queue" class="page">
+<div class="eyebrow">Patient flow</div><h2>Patient Queue</h2><p class="sub">Manage up to seven active patients. Urgent cases are shown first.</p>
+<div class="notice">For demonstration only: queue priority is a workflow aid and does not replace clinical triage or professional judgement.</div>
+<div class="panel"><h3>Add patient to queue</h3><div class="formgrid"><div class="field"><label>Patient</label><select id="queuePatient"></select></div><div class="field"><label>Priority</label><select id="priority"><option>Normal</option><option>Urgent</option></select></div></div><button class="btn" onclick="addQueue()">Add to queue</button><span id="queueMsg"></span></div>
+<div class="panel"><h3>Active queue <span class="tag" id="queueCount">0 / 7</span></h3><div id="queueTable"></div></div>
+</section>
+<section id="consult" class="page">
+<div class="eyebrow">Clinical services</div><h2>Clinical Consultation</h2><p class="sub">Record a sample consultation. This is not a clinical decision-support tool.</p>
+<div class="notice">Use fictional information only. The sample allergy warning is included to demonstrate how an alert may be displayed.</div>
+<div class="panel"><h3>Consultation record</h3><form id="consultForm"><div class="formgrid">
+<div class="field"><label>Patient</label><select id="consultPatient"></select></div>
+<div class="field"><label>Clinician</label><input id="clinician" value="Demo Nurse"></div>
+<div class="field"><label>Blood pressure</label><input id="bp" placeholder="e.g. 120/80"></div>
+<div class="field"><label>Temperature (°C)</label><input id="temp" placeholder="e.g. 36.8"></div>
+<div class="field"><label>Diagnosis</label><input id="diagnosis" placeholder="Demonstration diagnosis"></div>
+<div class="field"><label>Prescription / treatment</label><input id="treatment" placeholder="Sample treatment details"></div>
+</div><div class="field"><label>Consultation notes</label><textarea id="notes" placeholder="Enter fictional consultation notes"></textarea></div><button class="btn" type="submit">Complete consultation & create invoice</button></form><div id="consultMsg"></div></div>
+<div class="panel"><h3>Consultation history</h3><div id="consultTable"></div></div>
+</section>
+<section id="billing" class="page">
+<div class="eyebrow">Finance desk</div><h2>Billing & Payments</h2><p class="sub">Issue demonstration invoices and record simulated payments.</p>
+<div class="cards"><div class="card"><div class="metric-label">Total invoiced</div><div class="metric" id="billedTotal">R9,720</div></div><div class="card"><div class="metric-label">Received</div><div class="metric" id="receivedTotal">R8,140</div></div><div class="card"><div class="metric-label">Outstanding</div><div class="metric" id="dueTotal">R1,580</div></div><div class="card"><div class="metric-label">Invoices</div><div class="metric" id="billedCount">18</div></div></div>
+<div class="panel"><h3>Record a payment</h3><div class="formgrid"><div class="field"><label>Unpaid invoice</label><select id="payInvoice"></select></div><div class="field"><label>Payment method</label><select id="payMethod"><option>Cash</option><option>Card (simulated)</option><option>EFT (simulated)</option></select></div></div><button class="btn" onclick="recordPayment()">Record simulated payment</button><span id="paymentMsg"></span></div>
+<div class="panel"><h3>Invoice register</h3><div id="invoiceTable"></div></div>
+</section>
+<section id="reports" class="page">
+<div class="eyebrow">Administration</div><h2>Manager Reports</h2><p class="sub">A snapshot of the clinic's fictional demonstration activity.</p>
+<div class="cards"><div class="card"><div class="metric-label">Patient visits</div><div class="metric" id="reportVisits">24</div></div><div class="card"><div class="metric-label">Revenue received</div><div class="metric" id="reportRevenue">R8,140</div></div><div class="card"><div class="metric-label">Outstanding</div><div class="metric" id="reportDue">R1,580</div></div><div class="card"><div class="metric-label">Collection rate</div><div class="metric" id="collectionRate">84%</div></div></div>
+<div class="grid2"><div class="panel"><h3>Invoice summary</h3><p id="summaryText">R9,720 invoiced across 18 invoices. R8,140 received and R1,580 outstanding.</p><div style="height:13px;background:#f3dede;border-radius:20px;overflow:hidden"><div id="collectionBar" style="height:100%;width:84%;background:var(--teal);border-radius:20px"></div></div><small style="color:var(--muted)">Collection progress (demo)</small></div><div class="panel"><h3>Operational indicators</h3><p>Average waiting time: <b>27 minutes</b></p><p>Queue capacity: <b>7 active patients</b></p><p>Clinical priority: <b>Urgent cases first</b></p><p>Payment methods: <b>Cash, card and EFT</b></p></div></div>
+<div class="panel"><h3>Recent activity</h3><div id="activityTable"></div><div class="actions"><button class="btn secondary" onclick="window.print()">Print / Save report as PDF</button><button class="btn secondary" onclick="exportData()">Export demo data (CSV)</button></div></div>
+</section>
+<footer>Hlokomehla Health · Academic demonstration prototype · Fictional data only · Not for real clinical use</footer>
+</main></div>
+<script>
+const money=n=>'R'+Number(n).toLocaleString('en-ZA');
+let patients=[
+{id:'HH-1001',name:'Thandi Mokoena',dob:'1988-04-12',phone:'071 000 0001',gender:'Female',allergy:'Penicillin'},
+{id:'HH-1002',name:'Sipho Nkosi',dob:'1975-09-03',phone:'071 000 0002',gender:'Male',allergy:'None known'},
+{id:'HH-1003',name:'Lerato Dlamini',dob:'1996-01-21',phone:'071 000 0003',gender:'Female',allergy:'None known'},
+{id:'HH-1004',name:'Peter Khumalo',dob:'1969-07-18',phone:'071 000 0004',gender:'Male',allergy:'None known'}
+];
+let queue=[
+{patient:'HH-1001',priority:'Urgent',status:'Waiting',time:'08:10'},
+{patient:'HH-1002',priority:'Normal',status:'Waiting',time:'08:18'},
+{patient:'HH-1003',priority:'Normal',status:'Waiting',time:'08:24'},
+{patient:'HH-1004',priority:'Normal',status:'Waiting',time:'08:31'},
+{patient:'HH-1002',priority:'Normal',status:'Waiting',time:'08:36'},
+{patient:'HH-1003',priority:'Normal',status:'Waiting',time:'08:42'}
+];
+let invoices=[
+{id:'INV-2001',patient:'Thandi Mokoena',amount:450,status:'Unpaid',method:'—'},
+{id:'INV-2002',patient:'Sipho Nkosi',amount:650,status:'Paid',method:'Cash'},
+{id:'INV-2003',patient:'Lerato Dlamini',amount:480,status:'Paid',method:'Card'},
+{id:'INV-2004',patient:'Peter Khumalo',amount:450,status:'Unpaid',method:'—'}
+];
+let consultations=[];let activity=['Demo dashboard opened','Sample patient records loaded'];
+let base={visits:24,billed:9720,received:8140,count:18};
+function showPage(id){document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===id));refresh()}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>showPage(b.dataset.page));
+function patientName(id){return patients.find(p=>p.id===id)?.name||id}
+function renderPatients(){let q=(document.getElementById('patientSearch')?.value||'').toLowerCase();let list=patients.filter(p=>(p.name+' '+p.id).toLowerCase().includes(q));let rows=list.map(p=>`<tr><td>${p.id}</td><td>${p.name}</td><td>${p.dob||'—'}</td><td>${p.phone||'—'}</td><td>${p.allergy||'—'}</td></tr>`).join('');document.getElementById('patientResults').innerHTML=`<small>${list.length} matching patient(s)</small>`;document.getElementById('patientTable').innerHTML=list.length?`<table><tr><th>Patient no.</th><th>Name</th><th>Date of birth</th><th>Contact</th><th>Allergies</th></tr>${rows}</table>`:'<div class="empty">No matching patients.</div>';fillPatientSelects()}
+document.getElementById('patientForm').onsubmit=e=>{e.preventDefault();let id=document.getElementById('pnumber').value.trim()||'HH-'+(1000+patients.length+1);if(patients.some(p=>p.id===id)){alert('That patient number already exists.');return}patients.push({id,name:document.getElementById('pname').value.trim(),dob:document.getElementById('pdob').value,phone:document.getElementById('phone').value,gender:document.getElementById('gender').value,allergy:document.getElementById('allergy').value||'Not recorded'});activity.unshift('New patient registered: '+patientName(id));e.target.reset();document.getElementById('patientMsg').innerHTML='<div class="notice">Patient saved successfully. Patient number: '+id+'</div>';refresh()};
+function fillPatientSelects(){['queuePatient','consultPatient'].forEach(id=>{let el=document.getElementById(id),old=el.value;el.innerHTML=patients.map(p=>`<option value="${p.id}">${p.name} (${p.id})</option>`).join('');if(old)el.value=old})}
+function renderQueue(){let sorted=[...queue].sort((a,b)=>(a.priority==='Urgent'?-1:1)-(b.priority==='Urgent'?-1:1));document.getElementById('queueCount').textContent=queue.length+' / 7';document.getElementById('queueMetric').textContent=queue.length+' / 7';document.getElementById('queueTable').innerHTML=sorted.length?`<table><tr><th>Position</th><th>Patient</th><th>Priority</th><th>Status</th><th>Action</th></tr>${sorted.map((q,i)=>`<tr><td>${i+1}</td><td>${patientName(q.patient)}</td><td><span class="tag ${q.priority==='Urgent'?'red':''}">${q.priority}</span></td><td>${q.status}</td><td><button class="btn small secondary" onclick="completeQueue('${q.patient}',${queue.indexOf(q)})">Complete</button></td></tr>`).join('')}</table>`:'<div class="empty">The queue is empty.</div>'}
+function addQueue(){if(queue.length>=7){document.getElementById('queueMsg').innerHTML='<span class="tag red">Queue full — manager approval required for an override.</span>';return}let id=document.getElementById('queuePatient').value;if(!id){alert('Register a patient first.');return}let priority=document.getElementById('priority').value;queue.push({patient:id,priority,status:'Waiting',time:new Date().toLocaleTimeString('en-ZA',{hour:'2-digit',minute:'2-digit'})});activity.unshift('Added to queue: '+patientName(id)+' ('+priority+')');document.getElementById('queueMsg').innerHTML='<span class="tag">Added to queue</span>';refresh()}
+function completeQueue(id,index){queue.splice(index,1);activity.unshift('Queue visit completed: '+patientName(id));refresh()}
+document.getElementById('consultForm').onsubmit=e=>{e.preventDefault();let id=document.getElementById('consultPatient').value,p=patients.find(x=>x.id===id);if(!p){alert('Please register a patient first.');return}let c={patient:p.name,diagnosis:document.getElementById('diagnosis').value||'General consultation',bp:document.getElementById('bp').value,temp:document.getElementById('temp').value,treatment:document.getElementById('treatment').value,notes:document.getElementById('notes').value,clinician:document.getElementById('clinician').value};consultations.unshift(c);let inv={id:'INV-'+(2000+invoices.length+1),patient:p.name,amount:450,status:'Unpaid',method:'—'};invoices.unshift(inv);base.billed+=450;base.count++;base.visits++;activity.unshift('Consultation completed for '+p.name+'; invoice '+inv.id+' created');document.getElementById('consultMsg').innerHTML=`<div class="notice">${p.allergy&&p.allergy.toLowerCase().includes('penicillin')?'⚠ Allergy alert: Penicillin allergy recorded. ':''}Consultation saved. Invoice ${inv.id} for R450 created as unpaid.</div>`;e.target.reset();document.getElementById('clinician').value='Demo Nurse';refresh()};
+function renderConsult(){document.getElementById('consultTable').innerHTML=consultations.length?`<table><tr><th>Patient</th><th>Diagnosis</th><th>Clinician</th><th>Treatment</th></tr>${consultations.map(c=>`<tr><td>${c.patient}</td><td>${c.diagnosis}</td><td>${c.clinician}</td><td>${c.treatment||'—'}</td></tr>`).join('')}</table>`:'<div class="empty">No new consultations recorded in this session.</div>'}
+function totals(){let paid=invoices.filter(i=>i.status==='Paid').reduce((s,i)=>s+i.amount,0),due=invoices.filter(i=>i.status==='Unpaid').reduce((s,i)=>s+i.amount,0);return {billed:base.billed,received:base.received+paid,due:Math.max(0,base.billed-(base.received+paid)),count:base.count+Math.max(0,invoices.length-4)}}
+function renderInvoices(){let t=totals();document.getElementById('billedTotal').textContent=money(t.billed);document.getElementById('receivedTotal').textContent=money(t.received);document.getElementById('dueTotal').textContent=money(t.due);document.getElementById('billedCount').textContent=t.count;document.getElementById('invoiceMetric').textContent=t.count;document.getElementById('outstandingMetric').textContent=money(t.due);document.getElementById('payInvoice').innerHTML=invoices.filter(i=>i.status==='Unpaid').map(i=>`<option value="${i.id}">${i.id} · ${i.patient} · ${money(i.amount)}</option>`).join('')||'<option value="">No unpaid invoices</option>';document.getElementById('invoiceTable').innerHTML=invoices.length?`<table><tr><th>Invoice</th><th>Patient</th><th>Amount</th><th>Status</th><th>Method</th></tr>${invoices.map(i=>`<tr><td>${i.id}</td><td>${i.patient}</td><td>${money(i.amount)}</td><td><span class="tag ${i.status==='Unpaid'?'gold':''}">${i.status}</span></td><td>${i.method}</td></tr>`).join('')}</table>`:'<div class="empty">No invoices.</div>'}
+function recordPayment(){let id=document.getElementById('payInvoice').value,inv=invoices.find(i=>i.id===id);if(!inv){document.getElementById('paymentMsg').textContent='No unpaid invoice selected.';return}inv.status='Paid';inv.method=document.getElementById('payMethod').value;base.received+=inv.amount;activity.unshift('Payment recorded for '+inv.id+' via '+inv.method);document.getElementById('paymentMsg').innerHTML='<span class="tag">Payment recorded (simulated)</span>';refresh()}
+function renderReports(){let t=totals(),rate=t.billed?Math.round(t.received/t.billed*100):0;document.getElementById('reportVisits').textContent=base.visits;document.getElementById('reportRevenue').textContent=money(t.received);document.getElementById('reportDue').textContent=money(t.due);document.getElementById('collectionRate').textContent=rate+'%';document.getElementById('collectionBar').style.width=rate+'%';document.getElementById('summaryText').textContent=money(t.billed)+' invoiced across '+t.count+' invoices. '+money(t.received)+' received and '+money(t.due)+' outstanding.';document.getElementById('activityTable').innerHTML=activity.slice(0,8).map(a=>`<div style="padding:8px;border-bottom:1px solid var(--line)">• ${a}</div>`).join('')}
+function exportData(){let lines=['Invoice,Patient,Amount,Status,Method',...invoices.map(i=>[i.id,'"'+i.patient+'"',i.amount,i.status,i.method].join(','))];let blob=new Blob([lines.join('\\n')],{type:'text/csv'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Hlokomehla-demo-invoices.csv';a.click();URL.revokeObjectURL(a.href)}
+function refresh(){renderPatients();renderQueue();renderConsult();renderInvoices();renderReports();document.getElementById('visitMetric').textContent=base.visits}
+refresh();
+</script>
+</body></html>
